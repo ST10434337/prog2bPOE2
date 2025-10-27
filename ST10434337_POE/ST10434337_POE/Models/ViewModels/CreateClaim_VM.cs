@@ -4,33 +4,44 @@ namespace ST10434337_POE.Models.ViewModels
 {
     public class CreateClaim_VM
     {
+        [Key]
+        public int ClaimId { get; set; }
+
+        // Claim Details
+        [Required(ErrorMessage = "Please enter a claim title.")]
+        [StringLength(100, ErrorMessage = "Title must be under 100 characters.")]
         [Display(Name = "Claim Title")]
-        [Required(ErrorMessage = "A Title is required")]
-        public string Title { get; set; }
+        public string ClaimTitle { get; set; }
 
+        [Required(ErrorMessage = "Please enter hours worked.")]
+        [Range(0, 300, ErrorMessage = "Hours worked must be between 0 and 300.")]
         [Display(Name = "Hours Worked")]
-        [Required(ErrorMessage = "An amount of hours worked is required")]
-        public TimeSpan HoursWorked { get; set; }
-        /*
-        <input asp-for="HoursWorked" type="time" class="form-control" step="1" />
-        Step 1 = H:M:S 
-        
-         */
+        public double HoursWorked { get; set; }
 
-        [Display(Name = "Rate of Pay (Rands)")]
-        [Required(ErrorMessage = "A rate of pay is required")]
+        [Required(ErrorMessage = "Please enter your rate per hour.")]
+        [Range(0.01, 10000.00, ErrorMessage = "Rate must be between R0.01 and R10,000.")]
+        [DataType(DataType.Currency)]
+        [Display(Name = "Rate per Hour (R)")]
         public decimal RatePerHour { get; set; }
-        /*
-         later do,
-        Calc Total:
-         public decimal TotalPay => HourlyRate * (decimal)HoursWorked.TotalHours;
 
-         */
-
-        [Display(Name = "Notes")]
+        [Display(Name = "Submission Note")]
+        [StringLength(500, ErrorMessage = "Note must not exceed 500 characters.")]
         public string? SubmissionNote { get; set; }
 
-        
+        // FKs to other 
+        [Required(ErrorMessage = "Please select a programme.")]
+        [Display(Name = "Programme")]
+        public int ProgrammeCode { get; set; }
+
+        [Required(ErrorMessage = "User is required.")]
+        public int UserId { get; set; }
+
+        // --- File Upload ---
+        [Display(Name = "Upload Supporting Files (0 - 5)")]
+        [MaxLength(5, ErrorMessage = "You can upload up to 5 files only.")]
+        public List<IFormFile>? UploadedFiles { get; set; }
+
+
 
     }
 }

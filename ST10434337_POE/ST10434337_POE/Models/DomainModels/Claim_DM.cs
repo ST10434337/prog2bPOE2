@@ -12,7 +12,7 @@ namespace ST10434337_POE.Models.DomainModels
         public string? SubmissionNote { get; set; }
 
         // For what specific Programme
-        public int ProgrammeCode { get; set; } // FK
+        public string ProgrammeCode { get; set; } // FK
         // Lookup a programme by Code
         // A Claim_Dm selects a Programme_DM, only one ProgrammeCode can be selected by a Claim_DM
 
@@ -25,7 +25,9 @@ namespace ST10434337_POE.Models.DomainModels
 
         //Claim Stats
         public int ClaimStatus { get; set; } = 1; // On Creation default to pending 
-                                                  // int represents stage 1 pending, 2 verified, 3 approved, 4 rejected
+        // int represents stage 1 pending, 2 verified, 3 approved, 4 rejected
+
+        
 
         // Navigation Properties? 
         public Programmes_DM Programme { get; set; }
