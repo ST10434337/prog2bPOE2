@@ -82,8 +82,8 @@ namespace ST10434337_POE.Services
                     ClaimTitle = "Marking Assignments",
                     HoursWorked = TimeSpan.FromHours(12),
                     RatePerHour = 250.00m,
-                    SubmissionNote = "Completed marking for module IT101",
-                    ProgrammeCode = "1", // "IT101"
+                    SubmissionNote = "Completed marking for module PROG6212",
+                    ProgrammeCode = "1", // "PROG6212"
                     UserId = 2, // Bob the lecturer
                     ClaimStatus = 1
                 };
