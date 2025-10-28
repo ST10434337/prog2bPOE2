@@ -1,20 +1,33 @@
-﻿namespace ST10434337_POE.Models.DomainModels
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ST10434337_POE.Models.DomainModels
 {
+    /// <summary>
+    /// [Key] Auto increment
+    /// [FK] 
+    /// </summary>
     public class LecturerFiles_DM
     {
-        // Primary Key
+        [Key]
         public int LecFileId { get; set; }
-        
-        // For Which claim  (FK)
+
+        [ForeignKey("Claim")]
         public int ClaimId { get; set; }
 
-        // File Details
-        public required string FileName { get; set; }
+        [Required, StringLength(255)]
+        public string FileName { get; set; }
+
+        [StringLength(20)]
         public string? FileExtention { get; set; }
+
         public int FileSize { get; set; }
 
+        [StringLength(500)]
         public string? FilePath { get; set; }
 
-        // Each LecturerFiles_DM has only 1 Claim_DM but a Claim_DM can have zero or many LecturerFiles_DM
+        // Navigation Property
+        public Claim_DM Claim { get; set; }
+
     }
 }

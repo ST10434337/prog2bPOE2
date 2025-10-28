@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ST10434337_POE.Models.DomainModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace ST10434337_POE.Models.ViewModels
 {
+    // Input Validation, Display
     public class CreateClaim_VM
     {
         [Key]
@@ -31,7 +33,9 @@ namespace ST10434337_POE.Models.ViewModels
         // FKs to other 
         [Required(ErrorMessage = "Please select a programme.")]
         [Display(Name = "Programme")]
-        public int ProgrammeCode { get; set; }
+        public string ProgrammeCode { get; set; }
+
+        public List<Programmes_DM> Programmes{ get; set; } = new List<Programmes_DM>();
 
         [Required(ErrorMessage = "User is required.")]
         public int UserId { get; set; }

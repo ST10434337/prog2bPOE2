@@ -1,0 +1,38 @@
+﻿@model int
+<!-- Used for Claim Status' badge -->
+@switch (Model)
+{
+    case 1:
+        <span class="badge bg-warning text-dark">Pending</span>
+        break;
+
+    case 2:
+        <span class="badge bg-info text-dark">Verified</span>
+        break;
+
+    case 3:
+        <span class="badge bg-success">Approved</span>
+        break;
+
+    case 4:
+        <span class="badge bg-danger">Rejected</span>
+        break;
+
+    default:
+        <!-- Default Incase something breaks-->
+        <span class="badge bg-secondary">Unknown</span>
+        break;
+}
+
+@* 
+    Use Like
+    @foreach (var claim in Model)
+{
+    <tr>
+        <td>@claim.ClaimId</td>
+        <td>@claim.OtherField</td>
+
+        <td>@Html.Partial("_ClaimStatusBadge", claim.Status)</td>
+    </tr>
+}
+*@

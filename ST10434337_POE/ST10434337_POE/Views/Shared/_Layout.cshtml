@@ -2,6 +2,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @using ST10434337_POE.Models
 
+<!-- Session Data -->
 @{
     var username = HttpContextAccessor.HttpContext.Session.GetString("Username");
     var role = HttpContextAccessor.HttpContext.Session.GetInt32("Roll");
@@ -12,53 +13,58 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ST10434337_POE</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"]</title>
+    <!-- Bootswatch Brite Theme -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header / Nav Controls-->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">ST10434337_POE</a>
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">Home</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- Show Nav Items (Controls) based on User of this session-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @if (username != null)
                         {
                             if (role == 1)
                             {
-                                <!-- Academic Manager -->
-                                <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Verify">Verify Claims</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Approve">Approve Claims</a></li>
+                                // Academic Manager 
+                                <li class="nav-item"><a class="nav-link" asp-controller="ManageClaims" asp-action="Verify">Verify Claims</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-controller="ManageClaims" asp-action="Approve">Approve Claims</a></li>
                             }
                             else if (role == 2)
                             {
-                                <!-- Programme Coordinator -->
-                                <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Verify">Verify Claims</a></li>
+                                // Programme Coordinator
+                                <li class="nav-item"><a class="nav-link" asp-controller="ManageClaims" asp-action="Verify">Verify Claims</a></li>
                             }
                             else if (role == 3)
                             {
-                                <!-- HR -->
-                                <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Approve">Approve Claims</a></li>
+                                // HR 
+                                <li class="nav-item"> Features Coming Soon</li>
                             }
                             else
                             {
-                                <!-- Lecturer -->
+                                // Lecturer 
                                 <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Create">Create Claim</a></li>
                                 <li class="nav-item"><a class="nav-link" asp-controller="Claims" asp-action="Status">Claim Status</a></li>
                             }
                         }
                     </ul>
-
+                
                     <ul class="navbar-nav">
                         @if (username != null)
                         {
+                            <!-- Greet User add Roll For clarity -->
                             <li class="nav-item d-flex align-items-center me-2">
                                 <span class="navbar-text">
                                     Hello, <strong>@username</strong> (@(role switch
@@ -71,17 +77,20 @@
                                     }))
                             </span>
                         </li>
+                        <!-- Logout for users in session-->
                         <li class="nav-item">
                             <a class="btn btn-outline-danger" asp-controller="Account" asp-action="Logout">Logout</a>
                         </li>
                                                 }
                         else
                         {
+                            <!-- When No users in session Show Login and Register -->
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary me-2" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="btn btn-outline-primary " asp-controller="Account" asp-action="Login">Login</a>
                             </li>
+                            
                             <li class="nav-item">
-                                <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -90,15 +99,17 @@
         </nav>
     </header>
 
+    <!-- Body -->
     <div class="container pb-4">
-        <main role="main">
+        <main role="main" class="flex-fill">
             @RenderBody()
         </main>
     </div>
 
+    <!-- Footer -->
     <footer class="border-top footer text-muted py-3">
         <div class="container text-center">
-            &copy; 2025 - ST10434337_POE | <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+           ST10434337_POE | Part 2
         </div>
     </footer>
 

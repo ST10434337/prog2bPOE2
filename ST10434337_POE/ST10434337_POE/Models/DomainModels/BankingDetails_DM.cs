@@ -1,16 +1,29 @@
-﻿namespace ST10434337_POE.Models.DomainModels
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ST10434337_POE.Models.DomainModels
 {
+    /// <summary>
+    /// [Key] auto increment
+    /// </summary>
     public class BankingDetails_DM
     {
-        public int BankingDetailsId { get; set; }
-        
-        //Lec Banking Details
-        public string? BankName { get; set; } = "No Bank Name";
-        public string? BankBranch { get; set; } = "No Branch Name";
-        public string? AccountNumber { get; set; } = "No Account Number";
+        [Key]
+        public int BankingDetailsId { get; set; } 
 
-        //Who
-        public int UserId { get; set; }
-        // Each BankingDetails_DM is related to a User_DM, User_DM has only 1 banking details
+        [ForeignKey("User")]
+        public int UserId { get; set; } 
+
+        [Required, StringLength(100)]
+        public string BankName { get; set; } = "No Bank Name";
+
+        [Required, StringLength(100)]
+        public string BankBranch { get; set; } = "No Branch Name";
+
+        [Required, StringLength(50)]
+        public string AccountNumber { get; set; } = "No Account Number";
+
+        // Navigation Property
+        public User_DM User { get; set; } // Each BankingDetails belongs to 1 User
     }
 }

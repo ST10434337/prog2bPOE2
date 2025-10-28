@@ -2,20 +2,39 @@
 
 namespace ST10434337_POE.Models.DomainModels
 {
+    /// <summary>
+    /// Roll-> 1 Academic Manager, 2 Programme Coordinator, 3 HR, 4 Lecturer
+    /* 
+        PwHash Get pw, create hash then compare
+    */
+    /// </summary>
     public class User_DM
     {
         [Key]
-        public int UserId { get; set; }// GUID
-        public string Name { get; set; }
-        public string? Surname { get; set; }
-        [EmailAddress, MaxLength(500)]
-        public string Email { get; set; }
-        public int Roll { get; set; } // 1 Academic Manager, 2 Programme Coordinator, 3 HR, 4 Lecturer
-        public string Username { get; set; }
-        public string PasswordHash { get; set; } // Lookup if hashes match to sign in 
+        public int UserId { get; set; }
 
-        //Navigtaion props...?
-        public ICollection<Claim_DM> UserClaims { get; set; } = new List<Claim_DM>();
+        [Required, StringLength(100)]
+        public string Name { get; set; }
+
+        [StringLength(100)]
+        public string? Surname { get; set; }
+
+        [Required, EmailAddress, StringLength(255)]
+        public string Email { get; set; }
+
+        [Required, Range(1, 4)]
+        public int Roll { get; set; }
+
+        [Required, StringLength(50)]
+        public string Username { get; set; }
+
+        [Required]
+        public string PasswordHash { get; set; }
+
+
+        // Navigation Properties
+        public ICollection<Claim_DM> Claims { get; set; } = new List<Claim_DM>();
+        public BankingDetails_DM? BankingDetails { get; set; } 
 
 
     }
